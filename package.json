@@ -1,0 +1,26 @@
+{
+  "name": "bot-cripto-binance",
+  "version": "1.0.0",
+  "description": "Robô para operar criptomoedas na Binance baseado no indicador IFR",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "binance",
+    "crypto",
+    "trading",
+    "bot",
+    "rsi"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "binance-api-node": "^0.12.6",
+    "dotenv": "^16.3.1",
+    "technicalindicators": "^3.1.0",
+    "node-cron": "^3.0.2",
+    "winston": "^3.10.0"
+  }
+}
