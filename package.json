@@ -1,26 +1,23 @@
 {
-  "name": "bot-cripto-binance",
+  "name": "bot-cripto",
   "version": "1.0.0",
-  "description": "Robô para operar criptomoedas na Binance baseado no indicador IFR",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --no-deprecation src/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check:binance": "node --no-deprecation src/scripts/checkBinanceAuth.js"
   },
-  "keywords": [
-    "binance",
-    "crypto",
-    "trading",
-    "bot",
-    "rsi"
-  ],
+  "keywords": [],
   "author": "",
   "license": "ISC",
+  "description": "",
   "dependencies": {
-    "binance-api-node": "^0.12.6",
-    "dotenv": "^16.3.1",
-    "technicalindicators": "^3.1.0",
-    "node-cron": "^3.0.2",
-    "winston": "^3.10.0"
+    "decimal.js": "^10.6.0",
+    "dotenv": "^17.2.2",
+    "mysql2": "^3.15.0",
+    "node-binance-api": "^1.0.15",
+    "node-cron": "^4.2.1",
+    "sequelize": "^6.37.7",
+    "technicalindicators": "^3.1.0"
   }
 }
