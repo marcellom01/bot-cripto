@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node --no-deprecation src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "check:binance": "node --no-deprecation src/scripts/checkBinanceAuth.js"
+    "check:binance": "node --no-deprecation src/scripts/checkBinanceAuth.js",
+    "probe:binance": "node --no-deprecation src/scripts/probeBinanceBase.js"
   },
   "keywords": [],
   "author": "",

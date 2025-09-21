@@ -1,4 +1,13 @@
 require('dotenv').config();
+// Preferir IPv4 para evitar timeouts em ambientes com IPv6 mal configurado
+try {
+  const dns = require('dns');
+  if (typeof dns.setDefaultResultOrder === 'function') {
+    dns.setDefaultResultOrder('ipv4first');
+  }
+} catch (_) {
+  // noop
+}
 
 function toBool(v, def = false) {
   if (v === undefined) return def;
