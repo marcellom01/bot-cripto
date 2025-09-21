@@ -29,7 +29,7 @@ async function bootstrap() {
           const finishedAt = new Date();
           if (summary) {
             console.log(
-              `[${finishedAt.toISOString()}] Rodada de análise finalizada | USDT disponível: ${Number(summary.usdtAvailable).toFixed(2)} | Capital para compras: ${Number(summary.capitalDisponivel).toFixed(2)} | Trades em aberto: ${summary.openTradesCount}`
+              `[${finishedAt.toISOString()}] Rodada de análise finalizada | ${summary.asset} disponível: ${Number(summary.assetAvailable).toFixed(2)} | Capital para compras: ${Number(summary.capitalDisponivel).toFixed(2)} | Trades em aberto: ${summary.openTradesCount}`
             );
           } else {
             console.log(`[${finishedAt.toISOString()}] Rodada de análise finalizada`);
@@ -59,7 +59,7 @@ async function bootstrap() {
         const finishedAt = new Date();
         if (summary) {
           console.log(
-            `[${finishedAt.toISOString()}] Rodada de análise finalizada (runOnStart) | USDT disponível: ${Number(summary.usdtAvailable).toFixed(2)} | Capital para compras: ${Number(summary.capitalDisponivel).toFixed(2)} | Trades em aberto: ${summary.openTradesCount}`
+            `[${finishedAt.toISOString()}] Rodada de análise finalizada (runOnStart) | ${summary.asset} disponível: ${Number(summary.assetAvailable).toFixed(2)} | Capital para compras: ${Number(summary.capitalDisponivel).toFixed(2)} | Trades em aberto: ${summary.openTradesCount}`
           );
         } else {
           console.log(`[${finishedAt.toISOString()}] Rodada de análise finalizada (runOnStart)`);

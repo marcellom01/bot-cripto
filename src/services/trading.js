@@ -1,6 +1,6 @@
 const config = require('../config/env');
 const { createTrade, isPositionOpen, closeTrade, setClosedManually, listOpenTrades } = require('../repositories/tradeRepository');
-const { fetchCandles, placeBuyOrder: placeBuy, placeSellOrder: placeSell, getAllUSDTpairs, getOpenOrders, candlestickWS, terminateKlineWS } = require('./binance');
+const { fetchCandles, placeBuyOrder: placeBuy, placeSellOrder: placeSell, getAllQuotePairs, getOpenOrders, candlestickWS, terminateKlineWS } = require('./binance');
 const { calculateIndicators } = require('../indicators/indicators');
 
 async function processWithConcurrency(items, limit, handler) {
@@ -51,22 +51,23 @@ async function decideAndTrade() {
   const startedAt = Date.now();
   const interval = config.binance.defaultInterval;
   const candleLimit = config.trade.candleLimit || 200;
+  const assetSymbol = (config.trade.quoteAsset || 'USDT').toUpperCase();
 
   // Saldo
-  const balance = await getAccountBalance().catch((err) => {
+  const balance = await getAccountBalance(assetSymbol).catch((err) => {
     console.warn('Não foi possível obter saldo. Abortando rodada:', err.message);
     return { available: 0 };
   });
   const buyPct = Number(config.trade.buyBudgetPct || 0.9);
   let capital_disponivel = Number((balance.available || 0) * buyPct);
-  console.log(`Capital disponível calculado (${(buyPct * 100).toFixed(0)}%): ${capital_disponivel.toFixed(2)} USDT`);
+  console.log(`Capital disponível calculado (${(buyPct * 100).toFixed(0)}%): ${capital_disponivel.toFixed(2)} ${assetSymbol}`);
 
   // Posições abertas (para evitar checagem de DB por par)
   const openNow = await listOpenTrades().catch(() => []);
   const openSet = new Set(openNow.map((t) => t.pair));
 
   // Pares e limitação por rodada
-  const allPairs = await getAllUSDTpairs();
+  const allPairs = await getAllQuotePairs(config.trade.quoteAsset);
   const filteredPairs = allPairs.filter((p) => !openSet.has(p));
   const maxPairs = config.trade.maxPairsPerRound || filteredPairs.length;
   const pairs = filteredPairs.slice(0, maxPairs);
@@ -124,7 +125,8 @@ async function decideAndTrade() {
   // Resumo para logging externo
   const openTrades = await listOpenTrades().catch(() => []);
   return {
-    usdtAvailable: Number(balance.available || 0),
+    asset: assetSymbol,
+    assetAvailable: Number(balance.available || 0),
     capitalDisponivel: Number(capital_disponivel),
     openTradesCount: Array.isArray(openTrades) ? openTrades.length : 0,
   };

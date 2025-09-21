@@ -81,6 +81,7 @@ const config = {
     apiBase: normalizeApiBase(process.env.BINANCE_API_BASE, toBool(process.env.BINANCE_TESTNET, false)),
     wsBase: normalizeWsBase(process.env.BINANCE_WS_BASE, toBool(process.env.BINANCE_TESTNET, false)),
     requestTimeoutMs: toNum(process.env.HTTP_TIMEOUT_MS, 20000),
+    verbose: toBool(process.env.BINANCE_VERBOSE, false),
   },
   scheduler: {
     enabled: toBool(process.env.SCHEDULER_ENABLED, true),
@@ -93,6 +94,7 @@ const config = {
     concurrentRequests: toNum(process.env.TRADE_CONCURRENT_REQUESTS, 5),
     candleLimit: toNum(process.env.TRADE_CANDLE_LIMIT, 200),
     buyBudgetPct: toNum(process.env.TRADE_BUY_BUDGET_PCT, 0.9),
+    quoteAsset: trimEnv(process.env.TRADE_QUOTE_ASSET || 'USDT').toUpperCase(),
   },
 };
 
